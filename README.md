@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HitungSkorPadel
 
-## Getting Started
+Papan skor padel di browser. Ketuk sisi yang menang poin, lalu game, set, tie-break, dan giliran servis dihitung sendiri.
 
-First, run the development server:
+## Menjalankan di komputer
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka http://localhost:3000.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Hosting gratis di Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Buat akun di https://vercel.com
+2. Dari folder proyek, jalankan `npx vercel`
+3. Ikuti perintahnya. Vercel memberi alamat gratis, dan setiap perubahan yang di-deploy ikut terbarui.
 
-## Learn More
+Tidak perlu database untuk main sendiri. Skor yang sedang berjalan tetap tersimpan di perangkat.
 
-To learn more about Next.js, take a look at the following resources:
+## Akun Google dan tautan pertandingan
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Situs tetap di Vercel. Firebase hanya menyimpan pertandingan yang dibagikan.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Buat proyek di https://console.firebase.google.com
+2. Authentication → Sign-in method → aktifkan Google.
+3. Firestore Database → buat database. Mode production, lalu tempel isi `firestore.rules`.
+4. Project settings → Your apps → Web. Salin apiKey, authDomain, projectId, dan appId.
+5. Authentication → Settings → Authorized domains: tambahkan `localhost` dan `hitungskorpadel.vercel.app`.
+6. Salin `env.example` menjadi `.env.local` dan isi keempat nilai itu. File `.env.local` tidak ikut git.
+7. Di Vercel, Project → Settings → Environment Variables, isi keempat variabel yang sama, lalu jalankan `npx vercel --prod --yes` dari folder ini.
 
-## Deploy on Vercel
+Sebelum variabel itu diisi, tombol masuk tidak muncul dan permainan tetap tersimpan di perangkat. Setelah masuk, permainan di perangkat ini ikut naik ke akun. Orang lain membuka `https://hitungskorpadel.vercel.app/m/{id}` untuk melihat skor. Yang mengubah skor tetap akun pembuatnya.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Matikan Vercel Authentication di Project → Settings → Deployment Protection supaya orang lain bisa membuka tautannya.
